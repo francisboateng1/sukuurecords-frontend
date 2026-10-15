@@ -1,0 +1,1278 @@
+
+/* =========================================================
+   SCHOOL MANAGEMENT SYSTEM — MODERN LOGIN PAGE
+   Responsive | Animated Logo | Video Background
+   ========================================================= */
+
+/* =========================
+   GLOBAL LOGIN STYLES
+   ========================= */
+
+.sms-login-page,
+.sms-login-page * {
+    box-sizing: border-box;
+}
+
+.sms-login-page {
+    --sms-primary: #1a3a5f;
+    --sms-primary-light: #285787;
+    --sms-accent: #38bdf8;
+    --sms-text: #172033;
+    --sms-muted: #64748b;
+    --sms-border: #e2e8f0;
+    --sms-white: #ffffff;
+
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    padding: 36px 20px;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #102b49,
+        #285787
+    );
+
+    color: var(--sms-text);
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+/* =========================
+   BACKGROUND VIDEO
+   ========================= */
+
+.sms-background-video {
+    position: absolute;
+    inset: 0;
+
+    z-index: -3;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    pointer-events: none;
+}
+
+/* Video overlay for readability */
+/* =========================
+   CINEMATIC VIDEO OVERLAY
+   ========================= */
+
+.sms-login-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    background: linear-gradient(
+        135deg,
+        rgba(8, 25, 46, 0.48) 0%,
+        rgba(15, 42, 70, 0.32) 50%,
+        rgba(8, 25, 46, 0.48) 100%
+    );
+
+    pointer-events: none;
+}
+
+/* =========================
+   BACKGROUND GRID
+   ========================= */
+
+.sms-background-grid {
+    position: absolute;
+    inset: 0;
+
+    z-index: -1;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 36px 36px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+
+    pointer-events: none;
+}
+
+/* =========================
+   FLOATING BACKGROUND ORBS
+   ========================= */
+
+.sms-background-orb {
+    position: absolute;
+
+    z-index: -1;
+
+    border-radius: 50%;
+
+    filter: blur(3px);
+
+    pointer-events: none;
+
+    animation: sms-float 9s ease-in-out infinite;
+}
+
+.sms-orb-one {
+    width: 280px;
+    height: 280px;
+
+    top: -100px;
+    left: -90px;
+
+    background: rgba(56, 189, 248, 0.16);
+}
+
+.sms-orb-two {
+    width: 350px;
+    height: 350px;
+
+    right: -140px;
+    bottom: -150px;
+
+    background: rgba(59, 130, 246, 0.15);
+
+    animation-delay: -4s;
+}
+
+@keyframes sms-float {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(0, -20px, 0);
+    }
+}
+
+/* =========================
+   LOGIN CARD
+   ========================= */
+/* =========================
+   GLASSMORPHISM LOGIN CARD
+   ========================= */
+
+.sms-login-card {
+    position: relative;
+    z-index: 1;
+    display: block;
+
+    width: 100%;
+    max-width: 450px;
+    min-width: 0;
+
+    margin: auto;
+    padding: 42px 40px 34px;
+
+    /* Transparent glass effect */
+    background: rgba(255, 255, 255, 0.76);
+
+    /* Subtle glass border */
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 25px;
+
+    /* Modern depth */
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.22),
+        0 8px 24px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+    /* Blur the video visible behind the card */
+    -webkit-backdrop-filter: blur(12px) saturate(135%);
+    backdrop-filter: blur(12px) saturate(135%);
+
+    animation: sms-card-appear 0.65s ease both;
+
+    /* Prevent the card from clipping its content */
+    overflow: visible;
+
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* Slightly enhance the glass on hover */
+@media (hover: hover) and (pointer: fine) {
+    .sms-login-card:hover {
+        background: rgba(255, 255, 255, 0.80);
+        border-color: rgba(255, 255, 255, 0.82);
+
+        box-shadow:
+            0 35px 90px rgba(0, 0, 0, 0.25),
+            0 10px 30px rgba(0, 0, 0, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+}
+
+@keyframes sms-card-appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================
+   SCHOOL LOGO FIX
+========================================= */
+
+.sms-logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 29px;
+}
+
+.sms-logo-ring {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 104px;
+    height: 104px;
+    margin-bottom: 21px;
+
+    overflow: visible;
+
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffffff, #e8f2ff);
+    border: 1px solid #dbeafe;
+
+    box-shadow:
+        0 0 0 7px rgba(59, 130, 246, 0.045),
+        0 10px 30px rgba(26, 58, 95, 0.10);
+}
+
+.sms-spinning-logo {
+    display: block;
+
+    width: 76px;
+    height: 76px;
+
+    max-width: 100%;
+
+    object-fit: contain;
+
+    opacity: 1;
+    visibility: visible;
+
+    animation: sms-logo-spin 6s linear infinite;
+
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+
+    will-change: transform;
+}
+
+@keyframes sms-logo-spin {
+    from {
+        transform: perspective(500px) rotateY(0deg);
+    }
+
+    to {
+        transform: perspective(500px) rotateY(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .sms-logo-ring {
+        width: 94px;
+        height: 94px;
+    }
+
+    .sms-spinning-logo {
+        width: 69px;
+        height: 69px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sms-logo-ring {
+        width: 86px;
+        height: 86px;
+    }
+
+    .sms-spinning-logo {
+        width: 63px;
+        height: 63px;
+    }
+}
+
+
+
+/* =========================
+   ROTATING SCHOOL LOGO
+   ========================= */
+
+.sms-spinning-logo {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    width: 76px;
+    height: 76px;
+
+    object-fit: contain;
+
+    transform-style: preserve-3d;
+
+    animation: sms-logo-spin 6s linear infinite;
+
+    will-change: transform;
+}
+
+@keyframes sms-logo-spin {
+    from {
+        transform: perspective(500px) rotateY(0deg);
+    }
+
+    to {
+        transform: perspective(500px) rotateY(360deg);
+    }
+}
+
+@keyframes sms-ring-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   SCHOOL BRAND BADGE
+   ========================= */
+
+.sms-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 100%;
+
+    padding: 8px 13px;
+
+    border: 1px solid #dbeafe;
+    border-radius: 30px;
+
+    background: #eff6ff;
+
+    color: #1e4d7b;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    line-height: 1.5;
+
+    text-align: center;
+
+    overflow-wrap: anywhere;
+}
+
+/* =========================
+   LOGIN HEADING
+   ========================= */
+
+.sms-login-heading {
+    width: 100%;
+
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+.sms-login-heading h1 {
+    margin: 0;
+
+    color: var(--sms-text);
+
+    font-size: clamp(28px, 5vw, 34px);
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: -1.3px;
+
+    overflow-wrap: anywhere;
+}
+
+.sms-login-heading h1 span {
+    color: #0284c7;
+}
+
+.sms-login-heading p {
+    margin: 12px 0 0;
+
+    color: var(--sms-muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   LOGIN FORM
+   ========================= */
+
+.sms-login-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 23px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+/* =========================
+   INPUT GROUP
+   ========================= */
+
+.sms-input-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.sms-input-group label {
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   INPUT CONTAINER
+   ========================= */
+
+.sms-input-box {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 55px;
+
+    border: 1px solid var(--sms-border);
+    border-radius: 13px;
+
+    background: #f8fafc;
+
+    transition:
+        border-color 0.22s ease,
+        background-color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease;
+}
+
+.sms-input-box:hover {
+    border-color: #bdcce0;
+
+    background: #ffffff;
+}
+
+.sms-input-box:focus-within {
+    border-color: #2563eb;
+
+    background: #ffffff;
+
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
+
+    transform: translateY(-1px);
+}
+
+/* =========================
+   INPUT ICONS
+   ========================= */
+
+.sms-input-icon {
+    display: block;
+
+    flex-shrink: 0;
+
+    width: 20px;
+    height: 20px;
+
+    margin-left: 16px;
+
+    fill: none;
+
+    stroke: #8292a8;
+    stroke-width: 1.7;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition: stroke 0.2s ease;
+}
+
+.sms-input-box:focus-within .sms-input-icon {
+    stroke: #2563eb;
+}
+
+/* =========================
+   INPUT FIELDS
+   ========================= */
+
+.sms-input-box input {
+    display: block;
+
+    flex: 1 1 auto;
+
+    width: 0;
+    min-width: 0;
+    min-height: 53px;
+
+    margin: 0;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: inherit;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    box-shadow: none;
+
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.sms-input-box input::placeholder {
+    color: #9aa8b9;
+
+    opacity: 1;
+}
+
+.sms-input-box input:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.65;
+}
+
+/* Remove browser autofill background where possible */
+
+.sms-input-box input:-webkit-autofill,
+.sms-input-box input:-webkit-autofill:hover,
+.sms-input-box input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #172033;
+
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* =========================
+   PASSWORD VISIBILITY BUTTON
+   ========================= */
+
+.sms-password-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 44px;
+    height: 44px;
+
+    margin-right: 5px;
+    padding: 0;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.sms-password-toggle svg {
+    display: block;
+
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+
+    stroke: currentColor;
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sms-password-toggle:hover:not(:disabled) {
+    background: #eaf2fc;
+
+    color: #1a3a5f;
+}
+
+.sms-password-toggle:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 1px;
+}
+
+.sms-password-toggle:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.5;
+}
+
+/* =========================
+   SIGN-IN BUTTON
+   ========================= */
+
+.sms-login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    width: 100%;
+    min-height: 55px;
+
+    margin-top: 3px;
+
+    padding: 14px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 13px;
+
+    background: linear-gradient(
+        120deg,
+        #1a3a5f,
+        #285787
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 750;
+
+    line-height: 1.5;
+
+    cursor: pointer;
+
+    box-shadow: 0 7px 18px rgba(26, 58, 95, 0.17);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.sms-login-button svg {
+    display: block;
+
+    flex-shrink: 0;
+
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+
+    stroke: currentColor;
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition: transform 0.2s ease;
+}
+
+.sms-login-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 25px rgba(26, 58, 95, 0.23);
+
+    background: linear-gradient(
+        120deg,
+        #214970,
+        #32679c
+    );
+}
+
+.sms-login-button:hover:not(:disabled) svg {
+    transform: translateX(4px);
+}
+
+.sms-login-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.sms-login-button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.35);
+
+    outline-offset: 3px;
+}
+
+.sms-login-button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.75;
+}
+
+/* =========================
+   LOADING SPINNER
+   ========================= */
+
+.sms-button-spinner {
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    width: 18px;
+    height: 18px;
+
+    border: 2px solid rgba(255, 255, 255, 0.35);
+
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    animation: sms-loading-spin 0.7s linear infinite;
+}
+
+@keyframes sms-loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   ERROR MESSAGE
+   ========================= */
+
+.sms-login-error {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    width: 100%;
+    min-width: 0;
+
+    margin: -10px 0 22px;
+
+    padding: 13px;
+
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+
+    background: #fff1f2;
+
+    color: #b91c1c;
+
+    font-size: 13px;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+
+    animation: sms-error-appear 0.25s ease both;
+}
+
+@keyframes sms-error-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sms-error-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 19px;
+    height: 19px;
+
+    border: 1px solid currentColor;
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.sms-login-error > span:nth-child(2) {
+    flex: 1 1 auto;
+
+    min-width: 0;
+}
+
+.sms-login-error button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 25px;
+    height: 25px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: inherit;
+
+    font-size: 21px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.sms-login-error button:hover {
+    background: rgba(185, 28, 28, 0.08);
+}
+
+.sms-login-error button:focus-visible {
+    outline: 2px solid #b91c1c;
+    outline-offset: 2px;
+}
+
+/* =========================
+   LOGIN FOOTER
+   ========================= */
+
+.sms-login-footer {
+    margin-top: 27px;
+    padding-top: 23px;
+
+    border-top: 1px solid #edf1f6;
+
+    text-align: center;
+}
+
+.sms-login-footer p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.sms-login-footer a {
+    color: #1d4ed8;
+
+    font-weight: 750;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.sms-login-footer a:hover {
+    color: #1a3a5f;
+
+    text-decoration: underline;
+}
+
+.sms-login-footer a:focus-visible {
+    outline: 2px solid #2563eb;
+
+    outline-offset: 3px;
+}
+
+.sms-login-footer > span {
+    display: block;
+
+    margin-top: 10px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* =========================
+   COPYRIGHT FOOTER
+   ========================= */
+
+.sms-page-footer {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 12px;
+
+    text-align: center;
+
+    line-height: 1.6;
+}
+
+/* =========================
+   TABLETS
+   ========================= */
+
+@media (max-width: 768px) {
+    .sms-login-page {
+        padding: 28px 18px;
+    }
+
+    .sms-login-card {
+        max-width: 430px;
+
+        padding: 36px 30px 30px;
+
+        border-radius: 22px;
+    }
+
+    .sms-logo-ring {
+        width: 94px;
+        height: 94px;
+    }
+
+    .sms-spinning-logo {
+        width: 69px;
+        height: 69px;
+    }
+}
+
+/* =========================
+   MOBILE PHONES
+   ========================= */
+
+@media (max-width: 480px) {
+    .sms-login-page {
+        padding: 24px 15px;
+    }
+
+    .sms-login-card {
+        width: 100%;
+        max-width: 430px;
+
+        padding: 32px 23px 27px;
+
+        border-radius: 20px;
+    }
+
+    .sms-logo-area {
+        margin-bottom: 25px;
+    }
+
+    .sms-logo-ring {
+        width: 86px;
+        height: 86px;
+
+        margin-bottom: 19px;
+    }
+
+    .sms-spinning-logo {
+        width: 63px;
+        height: 63px;
+    }
+
+    .sms-brand-badge {
+        padding: 7px 10px;
+
+        font-size: 9px;
+
+        letter-spacing: 1.1px;
+    }
+
+    .sms-login-heading {
+        margin-bottom: 26px;
+    }
+
+    .sms-login-heading h1 {
+        font-size: 29px;
+    }
+
+    .sms-login-heading p {
+        font-size: 13px;
+    }
+
+    .sms-login-form {
+        gap: 20px;
+    }
+
+    .sms-input-box {
+        min-height: 53px;
+    }
+
+    /* Prevent automatic zooming on iPhones */
+    .sms-input-box input {
+        min-height: 51px;
+
+        font-size: 16px;
+    }
+
+    .sms-login-button {
+        min-height: 53px;
+    }
+
+    .sms-page-footer {
+        margin-top: 19px;
+    }
+}
+
+/* =========================
+   VERY SMALL PHONES
+   ========================= */
+
+@media (max-width: 350px) {
+    .sms-login-page {
+        padding: 18px 10px;
+    }
+
+    .sms-login-card {
+        padding: 28px 17px 23px;
+
+        border-radius: 17px;
+    }
+
+    .sms-login-heading h1 {
+        font-size: 26px;
+
+        letter-spacing: -0.8px;
+    }
+
+    .sms-brand-badge {
+        padding: 6px 8px;
+
+        font-size: 8px;
+
+        letter-spacing: 0.9px;
+    }
+
+    .sms-input-icon {
+        width: 18px;
+        height: 18px;
+
+        margin-left: 12px;
+    }
+
+    .sms-input-box input {
+        padding-right: 8px;
+        padding-left: 10px;
+    }
+
+    .sms-password-toggle {
+        width: 40px;
+        height: 42px;
+    }
+}
+
+/* =========================
+   SHORT SCREENS
+   ========================= */
+
+@media (max-height: 700px) {
+    .sms-login-page {
+        justify-content: flex-start;
+    }
+
+    .sms-login-card {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .sms-logo-area {
+        margin-bottom: 18px;
+    }
+
+    .sms-logo-ring {
+        width: 74px;
+        height: 74px;
+
+        margin-bottom: 13px;
+    }
+
+    .sms-spinning-logo {
+        width: 54px;
+        height: 54px;
+    }
+
+    .sms-login-heading {
+        margin-bottom: 21px;
+    }
+
+    .sms-login-form {
+        gap: 17px;
+    }
+}
+
+/* =========================
+   LANDSCAPE PHONES
+   ========================= */
+
+@media (max-height: 600px) and (orientation: landscape) {
+    .sms-login-page {
+        justify-content: flex-start;
+
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .sms-login-card {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+
+.sms-login-page button:focus-visible,
+.sms-login-page input:focus-visible,
+.sms-login-page a:focus-visible {
+    outline-offset: 3px;
+}
+
+/* Honor reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    .sms-background-orb,
+    .sms-login-card,
+    .sms-spinning-logo,
+    .sms-logo-ring::before,
+    .sms-button-spinner,
+    .sms-login-error {
+        animation: none !important;
+    }
+
+    .sms-login-page *,
+    .sms-login-page *::before,
+    .sms-login-page *::after {
+        scroll-behavior: auto !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+    .sms-background-video {
+        display: none;
+    }
+
+    .sms-login-page {
+        background: linear-gradient(
+            135deg,
+            #102b49,
+            #285787
+        );
+    }
+}
+
+/* =========================
+   VIDEO FALLBACK
+   ========================= */
+
+@supports not (backdrop-filter: blur(18px)) {
+    .sms-login-card {
+        background: #ffffff;
+    }
+}
+
+/* =========================
+   HIGH-CONTRAST MODE
+   ========================= */
+
+@media (forced-colors: active) {
+    .sms-login-card {
+        border: 1px solid CanvasText;
+    }
+
+    .sms-input-box {
+        border: 1px solid CanvasText;
+    }
+
+    .sms-login-button {
+        border: 1px solid ButtonText;
+    }
+}
+
+
