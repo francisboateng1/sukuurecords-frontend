@@ -27,6 +27,16 @@ ChartJS.register(
     ArcElement
 );
 
+
+const SERVER_URL = (
+    import.meta.env.VITE_API_URL || 'http://localhost:5000'
+).replace(/\/+$/, '');
+
+
+
+
+
+
 export default function Dashboard() {
     const navigate = useNavigate();
 
@@ -157,7 +167,7 @@ export default function Dashboard() {
             return branding.logo_url;
         }
 
-        return `http://localhost:5000${branding.logo_url}`;
+       return `${SERVER_URL}${branding.logo_url}`;
     };
 
 

@@ -2,6 +2,17 @@ import { useState,useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
+
+
+
+
+const SERVER_URL = (
+    import.meta.env.VITE_API_URL || 'http://localhost:5000'
+).replace(/\/+$/, '');
+
+
+
+
 export default function Settings() {
 
     const navigate = useNavigate();
@@ -193,7 +204,7 @@ export default function Settings() {
         // If backend returns /uploads/...
         if (config.logo_url.startsWith('/')) {
 
-            return `http://localhost:5000${config.logo_url}`;
+           return `${SERVER_URL}${config.logo_url}`;
 
         }
 
