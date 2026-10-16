@@ -155,7 +155,7 @@ export default function Login() {
     </div>
 
     <span className="sms-brand-badge">
-        SCHOOL MANAGEMENT SYSTEM
+        SUKUU RECORDS
     </span>
 
 </div>
