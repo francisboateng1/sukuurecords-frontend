@@ -57,7 +57,7 @@ export default function TeacherDashboard() {
 
     const handleLogout = () => {
         localStorage.removeItem('sms_token');
-        navigate('/login');
+        navigate('/');
     };
 
     const cardStyle = {
