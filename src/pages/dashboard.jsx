@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
+import './dashboard-responsive.css';
 import {
     Bar,
     Pie
@@ -39,6 +40,9 @@ const SERVER_URL = (
 
 export default function Dashboard() {
     const navigate = useNavigate();
+
+
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const [stats, setStats] = useState(null);
 
@@ -266,13 +270,33 @@ export default function Dashboard() {
     // =====================================================
 
     return (
-        <div style={styles.page}>
+        <div className="dashboard-page" style={styles.page}>
 
             {/* =================================================
                 SIDEBAR
             ================================================= */}
 
-            <aside style={styles.sidebar}>
+
+
+{mobileMenuOpen && (
+    <button
+        type="button"
+        className="dashboard-sidebar-overlay"
+        aria-label="Close navigation menu"
+        onClick={() => setMobileMenuOpen(false)}
+    />
+)}
+
+
+           <aside
+    className={`dashboard-sidebar ${mobileMenuOpen ? 'is-open' : ''}`}
+    style={styles.sidebar}
+    onClick={(event) => {
+        if (event.target.closest('a')) {
+            setMobileMenuOpen(false);
+        }
+    }}
+>
 
                 <div>
 
@@ -459,11 +483,25 @@ export default function Dashboard() {
                 MAIN AREA
             ================================================= */}
 
-            <main style={styles.main}>
+           <main className="dashboard-main" style={styles.main}>
 
                 {/* Top Header */}
 
-                <header style={styles.topHeader}>
+               <header className="dashboard-header" style={styles.topHeader}>
+
+
+              <button
+    type="button"
+    className="dashboard-menu-button"
+    aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+    aria-expanded={mobileMenuOpen}
+    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+>
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
 
                     <div>
 
@@ -483,7 +521,7 @@ export default function Dashboard() {
                     </div>
 
 
-                    <div style={styles.schoolIdentity}>
+                   <div className="dashboard-school-identity" style={styles.schoolIdentity}>
 
                         {brandingLoading ? (
                             <span style={styles.identityLoading}>
@@ -536,7 +574,7 @@ export default function Dashboard() {
                         </p>
                     </div>
 
-                    <div style={styles.actionGrid}>
+                    <div className="dashboard-action-grid" style={styles.actionGrid}>
 
                         <Link
                             to="/students"
@@ -616,7 +654,7 @@ export default function Dashboard() {
 
                 <section>
 
-                    <div style={styles.statsGrid}>
+                   <div className="dashboard-stats-grid" style={styles.statsGrid}>
 
                         <div style={styles.statCard}>
 
@@ -716,7 +754,7 @@ export default function Dashboard() {
                     </div>
 
 
-                    <div style={styles.chartGrid}>
+                  <div className="dashboard-chart-grid" style={styles.chartGrid}>
 
                         {/* Class Distribution */}
 
@@ -778,7 +816,7 @@ export default function Dashboard() {
                     FOOTER
                 ================================================= */}
 
-                <footer style={styles.footer}>
+               <footer className="dashboard-footer" style={styles.footer}>
 
                     <span>
                         {branding.school_name}

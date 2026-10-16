@@ -1,0 +1,294 @@
+/* ==========================================================
+   SUKUU RECORDS — RESPONSIVE ADMIN DASHBOARD
+   Desktop design preserved; tablet and mobile layouts added.
+   ========================================================== */
+
+.dashboard-page,
+.dashboard-page * {
+    box-sizing: border-box;
+}
+
+.dashboard-page {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+}
+
+.dashboard-main {
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 0;
+}
+
+.dashboard-action-grid,
+.dashboard-stats-grid,
+.dashboard-chart-grid {
+    min-width: 0;
+}
+
+.dashboard-action-grid > *,
+.dashboard-stats-grid > *,
+.dashboard-chart-grid > * {
+    min-width: 0;
+}
+
+.dashboard-menu-button {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.dashboard-menu-button span {
+    display: block;
+    width: 19px;
+    height: 2px;
+    border-radius: 2px;
+    background: #0f172a;
+}
+
+.dashboard-sidebar-overlay {
+    display: none;
+}
+
+/* Prevent long text from stretching the layout. */
+.dashboard-page h1,
+.dashboard-page h2,
+.dashboard-page h3,
+.dashboard-page p,
+.dashboard-page strong,
+.dashboard-page span {
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================
+   TABLETS AND SMALL LAPTOPS
+   ========================================================== */
+
+@media (max-width: 1100px) {
+    .dashboard-main {
+        padding: 24px !important;
+    }
+
+    .dashboard-action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .dashboard-chart-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .dashboard-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+}
+
+/* ==========================================================
+   MOBILE NAVIGATION AND CONTENT
+   ========================================================== */
+
+@media (max-width: 760px) {
+    .dashboard-page {
+        display: block !important;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .dashboard-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        z-index: 1001 !important;
+
+        width: min(285px, 86vw) !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 0 !important;
+
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+
+        padding:
+            max(18px, env(safe-area-inset-top))
+            16px
+            max(18px, env(safe-area-inset-bottom)) !important;
+
+        transform: translateX(-105%);
+        visibility: hidden;
+        transition:
+            transform 0.25s ease,
+            visibility 0.25s ease;
+
+        box-shadow: none;
+    }
+
+    .dashboard-sidebar.is-open {
+        transform: translateX(0);
+        visibility: visible;
+        box-shadow: 12px 0 40px rgba(15, 23, 42, 0.22);
+    }
+
+    .dashboard-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        padding: 0;
+        background: rgba(15, 23, 42, 0.48);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .dashboard-menu-button {
+        display: inline-flex;
+    }
+
+    .dashboard-main {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding:
+            max(16px, env(safe-area-inset-top))
+            16px
+            max(22px, env(safe-area-inset-bottom)) !important;
+    }
+
+    .dashboard-header {
+        display: grid !important;
+        grid-template-columns: 44px minmax(0, 1fr) !important;
+        align-items: start !important;
+        column-gap: 12px !important;
+        row-gap: 16px !important;
+        margin-bottom: 24px !important;
+    }
+
+    .dashboard-header > div:first-of-type {
+        min-width: 0;
+    }
+
+    .dashboard-header > div:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .dashboard-header h1 {
+        font-size: clamp(22px, 6vw, 28px) !important;
+        line-height: 1.2;
+    }
+
+    .dashboard-header p {
+        line-height: 1.5;
+    }
+
+    .dashboard-school-identity {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        justify-content: space-between;
+        gap: 10px !important;
+    }
+
+    .dashboard-school-identity > div {
+        min-width: 0;
+    }
+
+    .dashboard-school-identity img {
+        flex-shrink: 0;
+    }
+
+    .dashboard-action-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    .dashboard-stats-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 12px !important;
+        margin-bottom: 24px !important;
+    }
+
+    .dashboard-chart-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 14px !important;
+    }
+
+    .dashboard-page section {
+        min-width: 0;
+    }
+
+    .dashboard-page section[style] {
+        max-width: 100%;
+    }
+
+    .dashboard-page section > div[style] {
+        min-width: 0;
+    }
+
+    .dashboard-page .chartContainer,
+    .dashboard-page .pieContainer {
+        max-width: 100%;
+    }
+
+    .dashboard-footer {
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        line-height: 1.5;
+    }
+}
+
+/* ==========================================================
+   SMALL PHONES
+   ========================================================== */
+
+@media (max-width: 380px) {
+    .dashboard-main {
+        padding-right: 12px !important;
+        padding-left: 12px !important;
+    }
+
+    .dashboard-header {
+        column-gap: 8px !important;
+    }
+
+    .dashboard-page .quickActions {
+        padding: 15px !important;
+    }
+
+    .dashboard-page .chartCard {
+        padding: 15px !important;
+    }
+
+    .dashboard-page .statCard {
+        padding: 15px !important;
+        gap: 12px !important;
+    }
+
+    .dashboard-page .statValue {
+        font-size: 24px !important;
+    }
+
+    .dashboard-page .chartContainer,
+    .dashboard-page .pieContainer {
+        height: 240px !important;
+    }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-sidebar {
+        transition: none !important;
+    }
+}
