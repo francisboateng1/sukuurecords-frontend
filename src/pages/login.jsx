@@ -348,21 +348,19 @@ export default function Login() {
                         )}
                     </button>
 
-                </form>
+             </form>
 
-                {/* Registration */}
-                <div className="sms-login-footer">
-                    <p>
-                        New administrator?{' '}
-                        <Link to="/register">
-                            Create an account
-                        </Link>
-                    </p>
+{/* Developer Branding Footer */}
+<div className="sms-login-footer">
+    <span className="sms-security-note">
+        Secure access for authorized school users.
+    </span>
 
-                    <span>
-                        Secure access for authorized school users.
-                    </span>
-                </div>
+    <span className="sms-developer-credit">
+        Developed by <strong>Xisco CS</strong>
+    </span>
+</div>
+
 
             </section>
 

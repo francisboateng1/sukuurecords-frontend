@@ -30,12 +30,14 @@ export default function Students() {
     const [selectedClass, setSelectedClass] = useState('');
 
     const [formData, setFormData] = useState({
-        full_name: '',
-        parent_email: '',
-        parent_phone: '',
-        current_class: '',
-        gender: 'Other'
-    });
+    first_name: '',
+    middle_name: '',
+    surname: '',
+    parent_email: '',
+    parent_phone: '',
+    current_class: '',
+    gender: 'Other'
+});
 
     const [passportPhoto, setPassportPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState('');
@@ -226,14 +228,15 @@ export default function Students() {
 
     const resetForm = () => {
 
-        setFormData({
-            full_name: '',
-            parent_email: '',
-            parent_phone: '',
-            current_class: '',
-            gender: 'Other'
-        });
-
+       setFormData({
+    first_name: '',
+    middle_name: '',
+    surname: '',
+    parent_email: '',
+    parent_phone: '',
+    current_class: '',
+    gender: 'Other'
+});
         setPassportPhoto(null);
         setPhotoPreview('');
         setEditingStudent(null);
@@ -241,159 +244,146 @@ export default function Students() {
 
 
     // =====================================================
-    // ADD / EDIT STUDENT
-    // =====================================================
+// ADD / EDIT STUDENT
+// =====================================================
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        e.preventDefault();
+    // Validate names for new registrations.
+    // For editing, allow older records whose separate
+   // Validate names for new registrations and edits.
+if (!formData.first_name.trim()) {
+    setError('Please enter the student first name.');
+    return;
+}
 
-        if (!formData.full_name.trim()) {
+if (!formData.surname.trim()) {
+    setError('Please enter the student surname.');
+    return;
+} else {
+    if (!formData.first_name.trim()) {
+        setError('Please enter the student first name.');
+        return;
+    }
 
-            setError(
-                'Please enter the student name.'
-            );
+    if (!formData.surname.trim()) {
+        setError('Please enter the student surname.');
+        return;
+    }
+}
 
-            return;
+    if (!formData.current_class) {
+        setError('Please select a class.');
+        return;
+    }
+
+    try {
+        setSaving(true);
+        setError('');
+
+        const data = new FormData();
+
+        data.append('first_name', formData.first_name.trim());
+        data.append('middle_name', formData.middle_name.trim());
+        data.append('surname', formData.surname.trim());
+
+        data.append('parent_email', formData.parent_email.trim());
+        data.append('parent_phone', formData.parent_phone.trim());
+        data.append('current_class', formData.current_class);
+        data.append('gender', formData.gender);
+
+        if (passportPhoto) {
+            data.append('passport_photo', passportPhoto);
         }
 
-        if (!formData.current_class) {
+        // ---------------------------------------------
+        // EDIT EXISTING STUDENT
+        // ---------------------------------------------
 
-            setError(
-                'Please select a class.'
+        if (editingStudent) {
+            await api.put(
+                `/students/${editingStudent.id}`,
+                data
             );
 
-            return;
+            alert('Student updated successfully!');
         }
 
-        try {
+        // ---------------------------------------------
+        // ADD NEW STUDENT
+        // ---------------------------------------------
 
-            setSaving(true);
-            setError('');
-
-            const data = new FormData();
-
-            data.append(
-                'full_name',
-                formData.full_name
+        else {
+            const response = await api.post(
+                '/students/add',
+                data
             );
 
-            data.append(
-                'parent_email',
-                formData.parent_email
-            );
+            const admissionNumber =
+                response.data?.admission_number;
 
-            data.append(
-                'parent_phone',
-                formData.parent_phone
-            );
-
-            data.append(
-                'current_class',
-                formData.current_class
-            );
-
-            data.append(
-                'gender',
-                formData.gender
-            );
-
-            if (passportPhoto) {
-
-                data.append(
-                    'passport_photo',
-                    passportPhoto
-                );
-            }
-
-
-            // ---------------------------------------------
-            // EDIT
-            // ---------------------------------------------
-
-            if (editingStudent) {
-
-                await api.put(
-                    `/students/${editingStudent.id}`,
-                    data
-                );
-
+            if (admissionNumber) {
                 alert(
-                    'Student updated successfully!'
+                    `Student added successfully!\n\n` +
+                    `Name: ${response.data.full_name}\n` +
+                    `Admission Number: ${admissionNumber}`
                 );
-
+            } else {
+                alert('Student added successfully!');
             }
-
-            // ---------------------------------------------
-            // ADD
-            // ---------------------------------------------
-
-            else {
-
-                await api.post(
-                    '/students/add',
-                    data
-                );
-
-                alert(
-                    'Student added successfully!'
-                );
-            }
-
-            resetForm();
-
-            await fetchStudents();
-
-        } catch (err) {
-
-            console.error(
-                'Save student error:',
-                err
-            );
-
-            setError(
-                err.response?.data?.message ||
-                'Error saving student.'
-            );
-
-        } finally {
-
-            setSaving(false);
         }
-    };
 
+        resetForm();
+        await fetchStudents();
 
-    // =====================================================
-    // START EDITING
-    // =====================================================
+    } catch (err) {
+        console.error('Save student error:', err);
 
-    const startEdit = (student) => {
-
-        setEditingStudent(student);
-
-        setFormData({
-            full_name: student.full_name || '',
-            parent_email: student.parent_email || '',
-            parent_phone: student.parent_phone || '',
-            current_class: student.current_class || '',
-            gender: student.gender || 'Other'
-        });
-
-        setPassportPhoto(null);
-
-        setPhotoPreview(
-            student.passport_photo_url
-                ? getImageUrl(
-                    student.passport_photo_url
-                )
-                : ''
+        setError(
+            err.response?.data?.message ||
+            'Error saving student.'
         );
 
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    };
+    } finally {
+        setSaving(false);
+    }
+};
+
+
+    // =====================================================
+// START EDITING
+// =====================================================
+
+const startEdit = (student) => {
+    setEditingStudent(student);
+
+    setFormData({
+        // Use separate name fields when available.
+        // Older records may only have full_name.
+        first_name: student.first_name || '',
+        middle_name: student.middle_name || '',
+        surname: student.surname || '',
+
+        parent_email: student.parent_email || '',
+        parent_phone: student.parent_phone || '',
+        current_class: student.current_class || '',
+        gender: student.gender || 'Other'
+    });
+
+    setPassportPhoto(null);
+
+    setPhotoPreview(
+        student.passport_photo_url
+            ? getImageUrl(student.passport_photo_url)
+            : ''
+    );
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+};
 
 
     // =====================================================
@@ -611,24 +601,61 @@ export default function Students() {
 
                             {/* NAME */}
 
-                            <div>
-                                <label style={labelStyle}>
-                                    Full Name
-                                </label>
+                           {/* FIRST NAME */}
 
-                                <input
-                                    name="full_name"
-                                    placeholder="Student full name"
-                                    value={
-                                        formData.full_name
-                                    }
-                                    onChange={
-                                        handleChange
-                                    }
-                                    required
-                                    style={inputStyle}
-                                />
-                            </div>
+<div>
+    <label style={labelStyle}>
+        First Name
+    </label>
+
+    <input
+        name="first_name"
+        placeholder="Enter first name"
+        value={formData.first_name}
+        onChange={handleChange}
+        maxLength={100}
+        autoComplete="given-name"
+        required
+        style={inputStyle}
+    />
+</div>
+
+{/* MIDDLE NAME */}
+
+<div>
+    <label style={labelStyle}>
+        Middle Name(s)
+    </label>
+
+    <input
+        name="middle_name"
+        placeholder="Enter middle name(s), if any"
+        value={formData.middle_name}
+        onChange={handleChange}
+        maxLength={150}
+        autoComplete="additional-name"
+        style={inputStyle}
+    />
+</div>
+
+{/* SURNAME */}
+
+<div>
+    <label style={labelStyle}>
+        Surname
+    </label>
+
+    <input
+        name="surname"
+        placeholder="Enter surname"
+        value={formData.surname}
+        onChange={handleChange}
+        maxLength={100}
+        autoComplete="family-name"
+        required
+        style={inputStyle}
+    />
+</div>
 
 
                             {/* CLASS */}
@@ -1307,6 +1334,59 @@ export default function Students() {
                                                         student.full_name
                                                     }
                                                 </div>
+
+
+
+
+                                                {/* ADMISSION NUMBER */}
+
+<div
+    style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: '5px',
+        fontSize: '12px',
+        marginBottom: '6px'
+    }}
+>
+    <span
+        style={{
+            color: '#777'
+        }}
+    >
+        Admission No.:
+    </span>
+
+    {student.admission_number ? (
+        <span
+            title="Student admission number"
+            style={{
+                fontWeight: '600',
+                color: '#2563eb',
+                overflowWrap: 'anywhere',
+                fontFamily: 'monospace'
+            }}
+        >
+            {student.admission_number}
+        </span>
+    ) : (
+        <span
+            style={{
+                color: '#999',
+                fontStyle: 'italic'
+            }}
+        >
+            Not assigned
+        </span>
+    )}
+</div>
+
+
+
+
+
+
 
                                                 <div
                                                     style={{
