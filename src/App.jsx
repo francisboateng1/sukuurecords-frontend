@@ -17,6 +17,10 @@ import Classes from './pages/Classes';
 import Subjects from './pages/Subjects';
 import Billing from './pages/Billing';
 import Promotion from './pages/Promotion';
+import OwnerLogin from './pages/OwnerLogin';
+import OwnerDashboard from './pages/OwnerDashboard';
+import Terms from './pages/Terms';
+import ServiceAgreement from './pages/ServiceAgreement';
 
 
 
@@ -44,7 +48,10 @@ function App() {
       <Route path="/teacher/marks" element={<TeacherMarks />} />
       <Route
     path="/promotion" element={<Promotion />}/>
-     
+      <Route path="/owner/login" element={<OwnerLogin />} />
+      <Route path="/owner/dashboard" element={<OwnerDashboard />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/service-agreement" element={<ServiceAgreement />} />
     </Routes>
   );
 }
